@@ -1,0 +1,22 @@
+<idea-plugin>
+    <id>org.company.ForMat-Intellij-Plugin</id>
+    <name>ForMat</name>
+    <vendor>DontKnowers</vendor>
+
+    <description><![CDATA[
+        Description description description description description description
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <group  text="Test">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action class="com.plugin.HelloAction" id="ForMat.Actions.HelloAction" text="Say Hello"/>
+        </group>
+    </actions>
+</idea-plugin>
