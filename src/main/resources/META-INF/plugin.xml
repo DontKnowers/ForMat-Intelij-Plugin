@@ -10,13 +10,10 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <!-- Will in some future -->
     </extensions>
 
     <actions>
-        <group  text="Test">
-            <add-to-group group-id="MainMenu" anchor="last"/>
-            <action class="com.plugin.HelloAction" id="ForMat.Actions.HelloAction" text="Say Hello"/>
-        </group>
+        <!-- Will in some future -->
     </actions>
 </idea-plugin>
