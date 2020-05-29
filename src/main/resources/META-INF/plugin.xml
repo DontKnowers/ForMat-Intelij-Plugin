@@ -4,7 +4,7 @@
     <vendor>DontKnowers</vendor>
 
     <description><![CDATA[
-        Description description description description description description
+        A plugin, which provides opportunity to format code in selected fragment or file.
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
