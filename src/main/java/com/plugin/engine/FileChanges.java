@@ -5,9 +5,12 @@ import com.google.common.collect.Range;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Class that stores file and list of intervals to be formatted
+ */
 public class FileChanges {
-    private File file;
-    private ArrayList<Range<Integer>> changes;
+    private final File file;
+    private final ArrayList<Range<Integer>> changes;
 
     public FileChanges(File file, ArrayList<Range<Integer>> changes) {
         this.file = file;

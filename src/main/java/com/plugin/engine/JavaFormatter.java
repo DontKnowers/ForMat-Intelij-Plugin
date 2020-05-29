@@ -11,7 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class JavaFormatter implements LanguageFormatter {
     private final Formatter formatter;
@@ -40,54 +39,75 @@ public class JavaFormatter implements LanguageFormatter {
         formatter = new Formatter(JavaFormatterOptions.builder().style(codeStyle).build());
     }
 
+    /**
+     * @param file;
+     * @return text from file
+     * @throws IOException if have problems with files
+     */
     private String getTextFromFile(File file) throws IOException {
         return new String(Files.readAllBytes(Paths.get(file.toURI())));
     }
 
+    /**
+     * @param file;
+     * @param text  text that to be written to file
+     * @throws IOException if have problems with files
+     */
     private void writeTextToFile(File file, String text) throws IOException {
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(text);
         fileWriter.close();
     }
 
+    /**
+     * @param code code that will be formatted
+     * @return formatted code
+     * @throws FormatterException if code has exceptions
+     */
     public String format(final String code) throws FormatterException {
-        System.out.println(code);
         return formatter.formatSource(code);
     }
 
+    /**
+     * @param file;
+     * @throws FormatterException if code has exceptions
+     * @throws IOException        if have problems with files
+     */
     public void formatFile(final File file) throws FormatterException, IOException {
         writeTextToFile(file, format(getTextFromFile(file)));
     }
 
-    public void formatPartOfFile(final FileChanges fileChanges) throws FormatterException, IOException {
+    /**
+     * @param fileChanges list of intervals to be formatted
+     * @throws FormatterException if code has exceptions
+     * @throws IOException        if have problems with files
+     */
+    public void formatPartsOfFile(final FileChanges fileChanges) throws FormatterException, IOException {
         String sourceCode = getTextFromFile(fileChanges.getFile());
 
+        // Transform line number to char number for 'formatSource' function
         for (Range<Integer> range : fileChanges.getChanges()) {
-            int beginCharId = 0;
-            int endCharId = sourceCode.length();
+            int beginCharNumber = 0;
+            int endCharNumber = sourceCode.length();
 
-            for (int charId = 0, line = 1; charId < sourceCode.length() && line <= range.upperEndpoint(); charId++) {
-                if (sourceCode.charAt(charId) == '\n') {
-                    line++;
-                    if (line == range.lowerEndpoint()) {
-                        beginCharId = charId;
+            for (int charNumber = 0, lineNumber = 1;
+                 charNumber < sourceCode.length() && lineNumber <= range.upperEndpoint();
+                 charNumber++) {
+                if (sourceCode.charAt(charNumber) == '\n') {
+                    lineNumber++;
+                    if (lineNumber == range.lowerEndpoint()) {
+                        beginCharNumber = charNumber;
                     }
-                    if (line == range.upperEndpoint() + 1) {
-                        endCharId = charId;
+                    if (lineNumber == range.upperEndpoint() + 1) {
+                        endCharNumber = charNumber;
                     }
                 }
             }
 
             writeTextToFile(fileChanges.getFile(), formatter.formatSource(
                     getTextFromFile(fileChanges.getFile()),
-                    ImmutableList.of(Range.open(beginCharId, endCharId))
+                    ImmutableList.of(Range.open(beginCharNumber, endCharNumber))
             ));
-        }
-    }
-
-    public void formatGitDiff(ArrayList<FileChanges> filesChanges) throws FormatterException, IOException {
-        for (FileChanges fileChanges : filesChanges) {
-            formatPartOfFile(fileChanges);
         }
     }
 }
