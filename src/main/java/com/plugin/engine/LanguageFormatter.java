@@ -3,14 +3,12 @@ package com.plugin.engine;
 import com.google.googlejavaformat.java.FormatterException;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public interface LanguageFormatter {
-    String format(String code) throws FormatterException;
+    String format(final String code) throws FormatterException;
 
-    void formatFile(File file) throws FormatterException;
+    void formatFile(final File file) throws FormatterException, IOException;
 
-    void formatPartOfFile(File file, Integer beginLine, Integer endLine) throws FormatterException;
-
-    void formatGitDiff(ArrayList<File> files) throws FormatterException;
+    void formatPartsOfFile(final FileChanges fileChanges) throws FormatterException, IOException;
 }
