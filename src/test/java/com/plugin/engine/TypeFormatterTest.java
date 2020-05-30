@@ -21,7 +21,7 @@ public class TypeFormatterTest extends FormatterTest {
 
     @Test
     public void testGoogleFormattingType() throws FormatterException, IOException {
-        testType(0,"java/type_formatting/GoogleFormattingType.java");
+        testType(0, "java/type_formatting/GoogleFormattingType.java");
     }
 
     @Test
