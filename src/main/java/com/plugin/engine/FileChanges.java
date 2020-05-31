@@ -1,6 +1,6 @@
 package com.plugin.engine;
 
-import com.google.common.collect.Range;
+import com.intellij.openapi.util.Pair;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public class FileChanges {
     private final File file;
-    private final ArrayList<Range<Integer>> changes;
+    private final ArrayList<Pair<Integer, Integer>> changes;
 
-    public FileChanges(File file, ArrayList<Range<Integer>> changes) {
+    public FileChanges(File file, ArrayList<Pair<Integer, Integer>> changes) {
         this.file = file;
         this.changes = changes;
     }
@@ -21,7 +21,7 @@ public class FileChanges {
         return file;
     }
 
-    public ArrayList<Range<Integer>> getChanges() {
+    public ArrayList<Pair<Integer, Integer>> getChanges() {
         return changes;
     }
 }
