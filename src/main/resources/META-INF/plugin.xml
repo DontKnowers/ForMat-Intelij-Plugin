@@ -18,9 +18,6 @@
             <action id="com.plugin.frontend.actions.FormatAreaAction"
                     class="com.plugin.frontend.actions.FormatAreaAction"
                     text="Format selected area"/>
-            <action id="com.plugin.frontend.actions.FormatDiffAction"
-                    class="com.plugin.frontend.actions.FormatDiffAction"
-                    text="Format git diff"/>
         </group>
     </actions>
 </idea-plugin>
