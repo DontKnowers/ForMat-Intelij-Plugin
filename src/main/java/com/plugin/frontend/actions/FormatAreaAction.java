@@ -50,7 +50,7 @@ public class FormatAreaAction extends AnAction {
         }
 
         LineNumberReader r;
-        Integer startLine = 0;
+        int startLine = 0;
         int endLine = 0;
         int count = 0;
 
@@ -94,12 +94,11 @@ public class FormatAreaAction extends AnAction {
             }
             line = r.getLineNumber() + crutch;
         }
-        zxc ans = new zxc(count, line);
 
-        return ans;
+        return new zxc(count, line);
     }
 
-    private class zxc{
+    private static class zxc{
         int count;
         int line;
 
