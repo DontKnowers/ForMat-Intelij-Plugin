@@ -8,16 +8,15 @@
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
-
     <actions>
         <group id="com.plugin.actions.DefaultGroups" text="ForMat" popup="true">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="com.plugin.frontend.actions.FormatFileAction"
                     class="com.plugin.frontend.actions.FormatFileAction"
-                    text="Format current file"/>
-            <action id="com.plugin.frontend.actions.FormatAreaAction"
-                    class="com.plugin.frontend.actions.FormatAreaAction"
-                    text="Format selected area"/>
+                    text="Format Area/File"/>
+            <action id="com.plugin.frontend.actions.FormatDiffAction"
+                    class="com.plugin.frontend.actions.FormatDiffAction"
+                    text="Format Git Diff"/>
         </group>
     </actions>
 </idea-plugin>
