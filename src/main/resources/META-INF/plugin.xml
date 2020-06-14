@@ -13,7 +13,6 @@
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="com.plugin.frontend.actions.FormatFileAction"
                     class="com.plugin.frontend.actions.FormatFileAction"
-
                     text="Format Area/File"/>
             <action id="com.plugin.frontend.actions.FormatDiffAction"
                     class="com.plugin.frontend.actions.FormatDiffAction"
