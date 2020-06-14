@@ -22,7 +22,7 @@ public class FormatDiffAction extends AnAction {
 
             String projDir = e.getData(LangDataKeys.EXECUTION_ENVIRONMENT).getProject().getBasePath();
 
-            ArrayList<File> gitDiffFiles = gitDiff.executeCommand(projDir);
+            ArrayList<File> gitDiffFiles = gitDiff.executeCommand();
 
             for (File file : gitDiffFiles) {
                 javaFormatter.formatFile(file);
