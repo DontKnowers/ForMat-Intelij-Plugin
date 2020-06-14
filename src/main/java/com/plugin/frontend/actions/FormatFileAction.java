@@ -18,6 +18,7 @@ public class FormatFileAction extends AnAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
         JavaFormatter javaFormatter = new JavaFormatter();
         VirtualFile file = null;
+
         try {
             Document document = (e.getData(LangDataKeys.EDITOR)).getDocument();
             file = FileDocumentManager.getInstance().getFile(document);
