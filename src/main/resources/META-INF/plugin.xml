@@ -14,9 +14,6 @@
             <action id="com.plugin.frontend.actions.FormatFileAction"
                     class="com.plugin.frontend.actions.FormatFileAction"
                     text="Format Area/File"/>
-            <action id="com.plugin.frontend.actions.FormatDiffAction"
-                    class="com.plugin.frontend.actions.FormatDiffAction"
-                    text="Format Git Diff"/>
         </group>
     </actions>
 </idea-plugin>
