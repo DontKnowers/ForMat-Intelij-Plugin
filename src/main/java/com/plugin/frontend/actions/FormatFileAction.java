@@ -98,7 +98,7 @@ public class FormatFileAction extends AnAction {
             if (codeOfSymbol != 10 || !position) {
                 crutch = true;
             }
-            line = !crutch ? r.getLineNumber() : r.getLineNumber() + 1;
+            line = r.getLineNumber() + (crutch ? 1 : 0);
         }
 
         return new LineInfo(count, line);
