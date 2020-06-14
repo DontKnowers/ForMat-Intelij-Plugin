@@ -19,19 +19,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FormatFileAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        JavaFormatter javaFormatter = new JavaFormatter();
+        JavaFormatter javaFormatter = new JavaFormatter(0);
         VirtualFile file = null;
 
         try {
-            Document document = (e.getData(LangDataKeys.EDITOR)).getDocument();
+            Document document = (Objects.requireNonNull(e.getData(LangDataKeys.EDITOR))).getDocument();
             file = FileDocumentManager.getInstance().getFile(document);
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
+
 
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
         int startOffset = -1;
@@ -51,6 +53,7 @@ public class FormatFileAction extends AnAction {
         if (startOffset == endOffset) {
             try {
                 javaFormatter.formatFile(new File(file.getPath()));
+                file.refresh(false, false);
             } catch (FormatterException | IOException exception) {
                 exception.printStackTrace();
             }
@@ -82,6 +85,7 @@ public class FormatFileAction extends AnAction {
         } catch (FormatterException | IOException exception) {
             exception.printStackTrace();
         }
+        file.refresh(false, false);
     }
 
     //position 0 - start; position 1 - end
