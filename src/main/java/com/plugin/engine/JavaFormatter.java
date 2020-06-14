@@ -1,16 +1,17 @@
 package com.plugin.engine;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Range;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 import com.google.googlejavaformat.java.JavaFormatterOptions;
+import com.intellij.openapi.util.Pair;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class JavaFormatter implements LanguageFormatter {
     private final Formatter formatter;
@@ -85,29 +86,36 @@ public class JavaFormatter implements LanguageFormatter {
     public void formatPartsOfFile(final FileChanges fileChanges) throws FormatterException, IOException {
         String sourceCode = getTextFromFile(fileChanges.getFile());
 
+        // File is empty
+        if (sourceCode.length() == 0) {
+            return;
+        }
+
         // Transform line number to char number for 'formatSource' function
-        for (Range<Integer> range : fileChanges.getChanges()) {
+        ArrayList<Range<Integer>> rangesForFormatting = new ArrayList<>();
+        for (Pair<Integer, Integer> range : fileChanges.getChanges()) {
             int beginCharNumber = 0;
-            int endCharNumber = sourceCode.length();
+            int endCharNumber = sourceCode.length() - 1;
 
             for (int charNumber = 0, lineNumber = 1;
-                 charNumber < sourceCode.length() && lineNumber <= range.upperEndpoint();
+                 charNumber < sourceCode.length() && lineNumber <= range.getSecond();
                  charNumber++) {
                 if (sourceCode.charAt(charNumber) == '\n') {
                     lineNumber++;
-                    if (lineNumber == range.lowerEndpoint()) {
+                    if (lineNumber == range.getFirst()) {
                         beginCharNumber = charNumber;
                     }
-                    if (lineNumber == range.upperEndpoint() + 1) {
+                    if (lineNumber == range.getSecond() + 1) {
                         endCharNumber = charNumber;
                     }
                 }
             }
-
-            writeTextToFile(fileChanges.getFile(), formatter.formatSource(
-                    getTextFromFile(fileChanges.getFile()),
-                    ImmutableList.of(Range.open(beginCharNumber, endCharNumber))
-            ));
+            rangesForFormatting.add(Range.open(beginCharNumber, endCharNumber));
         }
+
+        writeTextToFile(fileChanges.getFile(), formatter.formatSource(
+                getTextFromFile(fileChanges.getFile()),
+                rangesForFormatting
+        ));
     }
 }
